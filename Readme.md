@@ -1,68 +1,40 @@
-# Fine-tuning LLM with LoRA (Low-Rank Adaptation)
+Fine-tuning LLM with LoRA (Low-Rank Adaptation) on Google Colab (T4 GPU)
+LoRA (Low-Rank Adaptation) is one of the most widely used parameter-efficient fine-tuning (PEFT) methods today.
 
-LoRA (Low-Rank Adaptation) is one of mostly used parameter-efficient fine-tuning (PEFT) methods today.
+This project demonstrates LoRA (Low-Rank Adaptation) implementation from scratch — without using the peft package — in a step-by-step IPython notebook format. The goal is to provide a clear, conceptual understanding of how LoRA works and how to apply it to LLMs using PyTorch.
 
-This example shows you [LoRA (Low-Rank Adaptation)](https://arxiv.org/abs/2106.09685) implementation from scratch (manually) in a step-by-step manner (without ```PEFT``` package), and also shows you clear ideas behind this implementation in IPython notebook.
+✅ Tested and run on Google Colab with free Tesla T4 GPU.
+No special local setup is required — just open the notebooks and run them.
 
-This is also runnable in the mainstream hardware with small footprint - such as, a signle GPU of Tesla T4, consumer GPUs (NVIDIA RTX), etc - for you to try this code easily.
+📘 Examples Included
+Notebook	Description
+01-finetune-opt-with-lora.ipynb	Fine-tuning Meta's OPT-125M with LoRA
+(Explains LoRA mechanism)
+02-finetune-gpt2-with-lora.ipynb	Fine-tuning OpenAI's GPT-2 Small (124M) with LoRA
 
-| Example                                                              | Description                                                             |
-| -------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| [01-finetune-opt-with-lora.ipynb](01-finetune-opt-with-lora.ipynb)   | Fine-tuning Meta's OPT-125M with LoRA<br>(Also, explaining LoRA method) |
-| [02-finetune-gpt2-with-lora.ipynb](02-finetune-gpt2-with-lora.ipynb) | Fine-tuning OpenAI's GPT-2 small (124M) with LoRA                       |
+Unlike the examples in the official Microsoft LoRA repository, this implementation directly downloads pre-trained models using the Hugging Face API and uses a manual PyTorch training loop (instead of the Hugging Face Trainer).
 
-Unlike examples in [official repository](https://github.com/microsoft/LoRA), here I download pre-trained models to focus on LoRA implementation.
+🛠 Setup (for Google Colab)
+To run this project, simply:
 
-> Note : In this repository, Hugging Face API is used to download pre-trained models and I then apply regular PyTorch training loop for fine-tuning. (I don't use blackboxed ```Trainer``` class in Hugging Face API.)
+Open the notebook in Google Colab
 
-## 1. Set-up and Install
+Select Runtime > Change Runtime Type > Set GPU (T4) as hardware accelerator
 
-To run this example, please install prerequisite's software and setup your environment as follows.<br>
-In the following setting, I have used a GPU-utilized virtual machine (VM) with "Ubuntu Server 20.04 LTS" image in Microsoft Azure.
+Run the following in the first cell to install the necessary packages:
 
-### Install GPU driver (CUDA)
+python
+Copy
+Edit
+!pip install torch transformers pandas matplotlib
+That’s it — you’re ready to fine-tune LLMs using LoRA on Colab!
 
-Install CUDA (NVIDIA GPU driver) as follows.
+🚀 Quick Start (in Colab)
+To get started:
 
-```
-# compilers and development settings
-sudo apt-get update
-sudo apt install -y gcc
-sudo apt-get install -y make
+bash
+Copy
+Edit
+!git clone https://github.com/rohitaimlpro/LLM-finetuning.git
+Then open and run the .ipynb notebooks to begin training.
 
-# install CUDA
-wget https://developer.download.nvidia.com/compute/cuda/12.2.2/local_installers/cuda_12.2.2_535.104.05_linux.run
-sudo sh cuda_12.2.2_535.104.05_linux.run
-echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64" >> ~/.bashrc
-source ~/.bashrc
-```
-
-### Install packages
-
-Install PyTorch, Hugging Face transformer, and other libraries as follows.
-
-```
-# install and upgrade pip
-sudo apt-get install -y python3-pip
-sudo -H pip3 install --upgrade pip
-# install packages
-pip3 install torch transformers pandas matplotlib
-# install jupyter for running notebook
-pip3 install jupyter
-```
-
-## 2. Fine-tune (Train)
-
-Download this repository.
-
-```
-git clone https://github.com/tsmatz/finetune_llm_with_lora
-```
-
-Run jupyter notebook.
-
-```
-jupyter notebook
-```
-
-Open jupyter notebook in browser, and run examples in this repository.
